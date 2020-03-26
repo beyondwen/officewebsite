@@ -110,4 +110,13 @@ public class Article {
     @ApiModelProperty("文章简述")
     @Column(name = "article_desc")
     private Integer articleDesc;
+
+    /**
+     * 标题
+     */
+    @ApiModelProperty("标题")
+    @Column(name = "article_title")
+    private String articleTitle;
+
+
 }
