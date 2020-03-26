@@ -6,6 +6,7 @@ import lombok.Data;
 
 import javax.persistence.*;
 import java.time.OffsetDateTime;
+import java.util.Date;
 
 /**
  * @author beyond
@@ -39,14 +40,14 @@ public class Article {
      */
     @ApiModelProperty("正文类型")
     @Column(name = "body_type")
-    private Integer bodyType;
+    private String bodyType;
 
     /**
      * 状态
      */
     @ApiModelProperty("状态")
     @Column(name = "body_status")
-    private Integer bodyStatus;
+    private String bodyStatus;
 
     /**
      * 图片上传id
@@ -95,7 +96,7 @@ public class Article {
      */
     @ApiModelProperty("更新时间")
     @Column(name = "update_time")
-    private OffsetDateTime updateTime;
+    private Date updateTime;
 
     /**
      * 文章id
@@ -109,7 +110,7 @@ public class Article {
      */
     @ApiModelProperty("文章简述")
     @Column(name = "article_desc")
-    private Integer articleDesc;
+    private String articleDesc;
 
     /**
      * 标题
@@ -117,6 +118,13 @@ public class Article {
     @ApiModelProperty("标题")
     @Column(name = "article_title")
     private String articleTitle;
+
+    /**
+     * 模块类型
+     */
+    @ApiModelProperty("模块类型")
+    @Column(name = "model_type")
+    private String modelType;
 
 
 }
