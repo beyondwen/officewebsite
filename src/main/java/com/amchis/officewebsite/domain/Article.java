@@ -118,5 +118,11 @@ public class Article {
     @Column(name = "article_title")
     private String articleTitle;
 
+    /**
+     * 分类(0正文1能量动态)
+     */
+    @ApiModelProperty("分类(0正文1能量动态)")
+    @Column(name = "article_category")
+    private Integer articleCategory;
 
 }
