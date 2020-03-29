@@ -5,7 +5,7 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import javax.persistence.*;
-import java.time.OffsetDateTime;
+import java.util.Date;
 
 /**
  * @author beyond
@@ -81,7 +81,7 @@ public class Article {
      */
     @ApiModelProperty("创建时间")
     @Column(name = "create_time")
-    private OffsetDateTime createTime;
+    private Date createTime;
 
     /**
      * 置顶排序
@@ -95,7 +95,7 @@ public class Article {
      */
     @ApiModelProperty("更新时间")
     @Column(name = "update_time")
-    private OffsetDateTime updateTime;
+    private Date updateTime;
 
     /**
      * 文章id
