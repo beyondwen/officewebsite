@@ -46,11 +46,4 @@ public class Articlecontent {
     @ApiModelProperty("文章内容")
     @Column(name = "article_content")
     private String articleContent;
-
-    /**
-     * 分类(0正文1能量动态)
-     */
-    @ApiModelProperty("分类(0正文1能量动态)")
-    @Column(name = "article_category")
-    private Integer articleCategory;
 }
