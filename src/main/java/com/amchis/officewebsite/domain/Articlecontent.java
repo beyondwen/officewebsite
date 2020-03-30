@@ -2,11 +2,9 @@ package com.amchis.officewebsite.domain;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import lombok.*;
+import lombok.Data;
 
 import javax.persistence.*;
-import java.math.BigDecimal;
-import java.time.*;
 
 /**
  * @author beyond
