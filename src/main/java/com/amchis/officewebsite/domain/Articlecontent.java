@@ -24,7 +24,7 @@ public class Articlecontent {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private Long id;
+    private Integer id;
 
     /**
      * 文章标题
