@@ -108,7 +108,7 @@ public class Article {
      */
     @ApiModelProperty("文章简述")
     @Column(name = "article_desc")
-    private Integer articleDesc;
+    private String articleDesc;
 
     /**
      * 标题
