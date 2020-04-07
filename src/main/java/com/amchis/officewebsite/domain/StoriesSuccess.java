@@ -27,77 +27,77 @@ public class StoriesSuccess {
     /**
      * 正文类型
      */
-    @ApiModelProperty("id")
+    @ApiModelProperty("正文类型")
     @Column(name = "username")
     private String username;
 
     /**
      * 状态
      */
-    @ApiModelProperty("id")
+    @ApiModelProperty("状态")
     @Column(name = "body_status")
     private String bodyStatus;
 
     /**
      * 置顶排序
      */
-    @ApiModelProperty("id")
+    @ApiModelProperty("置顶排序")
     @Column(name = "top_order")
     private Integer topOrder;
 
     /**
      * 创建者名称
      */
-    @ApiModelProperty("id")
+    @ApiModelProperty("创建者名称")
     @Column(name = "create_username")
     private String createUsername;
 
     /**
      * 图片上传id
      */
-    @ApiModelProperty("id")
+    @ApiModelProperty("图片上传id")
     @Column(name = "cover_img")
     private Integer coverImg;
 
     /**
      * 阅读数量
      */
-    @ApiModelProperty("id")
+    @ApiModelProperty("阅读数量")
     @Column(name = "read_num")
     private Integer readNum;
 
     /**
      * 创建时间
      */
-    @ApiModelProperty("id")
+    @ApiModelProperty("创建时间")
     @Column(name = "create_time")
     private String createTime;
 
     /**
      * 更新时间
      */
-    @ApiModelProperty("id")
+    @ApiModelProperty("更新时间")
     @Column(name = "update_time")
     private String updateTime;
 
     /**
      * 文章id
      */
-    @ApiModelProperty("id")
+    @ApiModelProperty("文章id")
     @Column(name = "article_id")
     private Integer articleId;
 
     /**
      * 20字简述
      */
-    @ApiModelProperty("id")
+    @ApiModelProperty("20字简述")
     @Column(name = "article_desc")
     private String articleDesc;
 
     /**
-     * 成功故事
+     * 穿戴时间
      */
-    @ApiModelProperty("id")
+    @ApiModelProperty("穿戴时间")
     @Column(name = "wear_time")
     private String wearTime;
 }
