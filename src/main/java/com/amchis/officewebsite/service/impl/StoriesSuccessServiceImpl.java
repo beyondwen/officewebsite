@@ -7,9 +7,9 @@ import com.amchis.officewebsite.base.request.PageQuery;
 import com.amchis.officewebsite.base.response.CommonCode;
 import com.amchis.officewebsite.base.response.QueryResponseResult;
 import com.amchis.officewebsite.base.response.QueryResult;
-import com.amchis.officewebsite.domain.EnergyDynamics;
-import com.amchis.officewebsite.jpa.EnergyDynamicsRepository;
-import com.amchis.officewebsite.service.EnergyDynamicsService;
+import com.amchis.officewebsite.domain.StoriesSuccess;
+import com.amchis.officewebsite.jpa.StoriesSuccessRepository;
+import com.amchis.officewebsite.service.StoriesSuccessService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,14 +24,14 @@ import javax.persistence.criteria.Predicate;
 
 @Service
 @Slf4j
-public class EnergyDynamicsServiceImpl extends BaseApiService implements EnergyDynamicsService {
+public class StoriesSuccessServiceImpl extends BaseApiService implements StoriesSuccessService {
 
     @Autowired
-    private EnergyDynamicsRepository energyDynamicsRepository;
+    private StoriesSuccessRepository storiesSuccessRepository;
 
     @Override
-    public BaseResponse<JSONObject> add(EnergyDynamics energyDynamics) {
-        energyDynamicsRepository.save(energyDynamics);
+    public BaseResponse<JSONObject> add(StoriesSuccess storiesSuccess) {
+        storiesSuccessRepository.save(storiesSuccess);
         return setResultSuccess();
     }
 
@@ -70,8 +70,8 @@ public class EnergyDynamicsServiceImpl extends BaseApiService implements EnergyD
             }
             return predicate;
         };
-        Page<EnergyDynamics> all = energyDynamicsRepository.findAll(specification, pageable);
-        QueryResult<EnergyDynamics> queryResult = new QueryResult<>();
+        Page<StoriesSuccess> all = storiesSuccessRepository.findAll(specification, pageable);
+        QueryResult<StoriesSuccess> queryResult = new QueryResult<>();
         //数据列表
         queryResult.setList(all.getContent());
         //数据总记录数
