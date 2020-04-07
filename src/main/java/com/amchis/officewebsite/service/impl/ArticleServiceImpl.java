@@ -54,6 +54,7 @@ public class ArticleServiceImpl extends BaseApiService implements ArticleService
             String endTime = pageQuery.getEndTime();
             String startTime = pageQuery.getStartTime();
             String source = pageQuery.getSource();
+            Integer category = pageQuery.getArticleCategory();
             //起始日期
             if (StringUtils.isNotEmpty(startTime)) {
                 predicate.getExpressions().add(cb.greaterThanOrEqualTo(root.get("createTime").as(String.class), startTime));
@@ -68,6 +69,7 @@ public class ArticleServiceImpl extends BaseApiService implements ArticleService
             if (StringUtils.isNotEmpty(source)) {
                 predicate = cb.and(predicate, cb.like(root.get("source"), "%" + source + "%"));
             }
+            predicate = cb.and(predicate, cb.equal(root.get("articleCategory"), category));
             return predicate;
         };
         Page<Article> all = articleRepository.findAll(specification, pageable);

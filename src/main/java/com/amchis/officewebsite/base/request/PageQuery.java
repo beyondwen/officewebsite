@@ -12,4 +12,6 @@ public class PageQuery extends QueryPageRequest {
     private String startTime;
 
     private String source;
+
+    private Integer articleCategory;
 }

@@ -25,9 +25,9 @@ public class StoriesSuccess {
     private Integer id;
 
     /**
-     * 正文类型
+     * 姓名
      */
-    @ApiModelProperty("正文类型")
+    @ApiModelProperty("姓名")
     @Column(name = "username")
     private String username;
 
