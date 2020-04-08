@@ -80,4 +80,15 @@ public class ArticleServiceImpl extends BaseApiService implements ArticleService
         queryResult.setTotal(all.getTotalElements());
         return new QueryResponseResult(CommonCode.SUCCESS, queryResult);
     }
+
+    @Override
+    public BaseResponse<JSONObject> delete(int id) {
+        try {
+            articleRepository.deleteById(id);
+            return setResultSuccess("删除成功");
+        }catch (Exception e){
+            return setResultError("删除失败");
+        }
+
+    }
 }

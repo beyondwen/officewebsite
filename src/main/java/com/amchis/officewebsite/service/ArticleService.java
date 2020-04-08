@@ -21,4 +21,8 @@ public interface ArticleService {
     @GetMapping("/findPageList")
     @ApiOperation("分页列表")
     QueryResponseResult findPageList(int page, int size, PageQuery pageQuery);
+
+    @GetMapping("/delete")
+    @ApiOperation("删除")
+    BaseResponse<JSONObject> delete(int id);
 }

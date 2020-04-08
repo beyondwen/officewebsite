@@ -25,4 +25,9 @@ public class ArticleController {
     public QueryResponseResult findPageList(@PathVariable("page") int page, @PathVariable("size") int size, PageQuery pageQuery) {
         return service.findPageList(page, size, pageQuery);
     }
+
+    @GetMapping("/delete")
+    public BaseResponse<JSONObject> delete(@PathVariable("id") Integer id) {
+        return service.delete(id);
+    }
 }

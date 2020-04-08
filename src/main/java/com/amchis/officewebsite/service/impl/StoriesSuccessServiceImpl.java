@@ -78,4 +78,15 @@ public class StoriesSuccessServiceImpl extends BaseApiService implements Stories
         queryResult.setTotal(all.getTotalElements());
         return new QueryResponseResult(CommonCode.SUCCESS, queryResult);
     }
+
+    @Override
+    public BaseResponse<JSONObject> delete(int id) {
+        try {
+            storiesSuccessRepository.deleteById(id);
+            return setResultSuccess("删除成功");
+        }catch (Exception e){
+            return setResultError("删除失败");
+        }
+
+    }
 }
