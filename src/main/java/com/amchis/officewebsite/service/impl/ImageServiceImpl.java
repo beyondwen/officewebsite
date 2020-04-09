@@ -3,8 +3,8 @@ package com.amchis.officewebsite.service.impl;
 import com.alibaba.fastjson.JSONObject;
 import com.amchis.officewebsite.base.BaseApiService;
 import com.amchis.officewebsite.base.BaseResponse;
-import com.amchis.officewebsite.domain.ImageUpload;
-import com.amchis.officewebsite.jpa.ImageUploadRepository;
+import com.amchis.officewebsite.domain.Image;
+import com.amchis.officewebsite.jpa.ImageRepository;
 import com.amchis.officewebsite.service.ImageService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.FileUtils;
@@ -14,7 +14,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -26,7 +25,7 @@ import java.util.UUID;
 public class ImageServiceImpl extends BaseApiService implements ImageService {
 
     @Autowired
-    private ImageUploadRepository imageUploadRepository;
+    private ImageRepository imageRepository;
 
     @Override
     public BaseResponse uploadImage(@RequestParam("file") MultipartFile file) {
@@ -46,9 +45,9 @@ public class ImageServiceImpl extends BaseApiService implements ImageService {
                 String serverPath = dir.getAbsolutePath() + "/" + serverFileUrlName + "." + fileName.substring(fileName.lastIndexOf(".") + 1);
                 File serverFile = new File(serverPath);
                 file.transferTo(serverFile);
-                ImageUpload upFile = new ImageUpload();
+                Image upFile = new Image();
                 upFile.setImageUrl(serverPath);
-                ImageUpload save = imageUploadRepository.save(upFile);
+                Image save = imageRepository.save(upFile);
                 if (save != null) {
                     //Integer id = save.getId();
                     return setResultSuccess(save);
@@ -78,9 +77,9 @@ public class ImageServiceImpl extends BaseApiService implements ImageService {
 
     @Override
     public BaseResponse<JSONObject> delete(Integer id) {
-        ImageUpload one = imageUploadRepository.getOne(id);
+        Image one = imageRepository.getOne(id);
         if (one != null) {
-            imageUploadRepository.delete(one);
+            imageRepository.delete(one);
             return setResultSuccess("删除成功");
         }
         return setResultSuccess("删除失败");
