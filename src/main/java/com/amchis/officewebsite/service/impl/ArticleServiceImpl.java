@@ -7,8 +7,11 @@ import com.amchis.officewebsite.base.request.PageQuery;
 import com.amchis.officewebsite.base.response.CommonCode;
 import com.amchis.officewebsite.base.response.QueryResponseResult;
 import com.amchis.officewebsite.base.response.QueryResult;
+import com.amchis.officewebsite.domain.ACDo;
 import com.amchis.officewebsite.domain.Article;
+import com.amchis.officewebsite.domain.Articlecontent;
 import com.amchis.officewebsite.jpa.ArticleRepository;
+import com.amchis.officewebsite.jpa.ArticlecontentRepository;
 import com.amchis.officewebsite.service.ArticleService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -21,6 +24,7 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.criteria.Predicate;
+import java.util.Optional;
 
 @Service
 @Slf4j
@@ -28,6 +32,9 @@ public class ArticleServiceImpl extends BaseApiService implements ArticleService
 
     @Autowired
     private ArticleRepository articleRepository;
+
+    @Autowired
+    private ArticlecontentRepository articlecontentRepository;
 
     @Override
     public BaseResponse<JSONObject> add(Article article) {
@@ -86,9 +93,27 @@ public class ArticleServiceImpl extends BaseApiService implements ArticleService
         try {
             articleRepository.deleteById(id);
             return setResultSuccess("删除成功");
-        }catch (Exception e){
+        } catch (Exception e) {
             return setResultError("删除失败");
         }
+    }
 
+    @Override
+    public BaseResponse<JSONObject> detail(int id) {
+        Optional<Article> optional = articleRepository.findById(id);
+        if (optional.isPresent()) {
+            Article article = optional.get();
+            Integer id1 = article.getArticleId();
+            Optional<Articlecontent> optional1 = articlecontentRepository.findById(id1);
+            if (optional1.isPresent()){
+                ACDo acDo = new ACDo();
+                Articlecontent articlecontent = optional1.get();
+                acDo.setArticle(article);
+                acDo.setArticlecontent(articlecontent);
+                return setResultSuccess(acDo);
+            }
+            return setResultError("未查询到数据");
+        }
+        return setResultError("未查询到数据");
     }
 }

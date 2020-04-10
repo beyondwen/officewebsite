@@ -25,4 +25,8 @@ public interface StoriesSuccessService {
     @GetMapping("/delete")
     @ApiOperation("删除")
     BaseResponse<JSONObject> delete(int id);
+
+    @GetMapping("/detail")
+    @ApiOperation("详情")
+    BaseResponse<JSONObject> detail(int id);
 }

@@ -26,6 +26,11 @@ public class ArticleController {
         return service.findPageList(page, size, pageQuery);
     }
 
+    @GetMapping("/detail")
+    public BaseResponse<JSONObject> detail(@PathVariable("id") int id) {
+        return service.detail(id);
+    }
+
     @GetMapping("/delete")
     public BaseResponse<JSONObject> delete(@PathVariable("id") Integer id) {
         return service.delete(id);

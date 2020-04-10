@@ -7,7 +7,10 @@ import com.amchis.officewebsite.base.request.PageQuery;
 import com.amchis.officewebsite.base.response.CommonCode;
 import com.amchis.officewebsite.base.response.QueryResponseResult;
 import com.amchis.officewebsite.base.response.QueryResult;
+import com.amchis.officewebsite.domain.Articlecontent;
+import com.amchis.officewebsite.domain.SCDo;
 import com.amchis.officewebsite.domain.StoriesSuccess;
+import com.amchis.officewebsite.jpa.ArticlecontentRepository;
 import com.amchis.officewebsite.jpa.StoriesSuccessRepository;
 import com.amchis.officewebsite.service.StoriesSuccessService;
 import lombok.extern.slf4j.Slf4j;
@@ -21,6 +24,7 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.criteria.Predicate;
+import java.util.Optional;
 
 @Service
 @Slf4j
@@ -28,6 +32,9 @@ public class StoriesSuccessServiceImpl extends BaseApiService implements Stories
 
     @Autowired
     private StoriesSuccessRepository storiesSuccessRepository;
+
+    @Autowired
+    private ArticlecontentRepository articlecontentRepository;
 
     @Override
     public BaseResponse<JSONObject> add(StoriesSuccess storiesSuccess) {
@@ -87,6 +94,24 @@ public class StoriesSuccessServiceImpl extends BaseApiService implements Stories
         }catch (Exception e){
             return setResultError("删除失败");
         }
+    }
 
+    @Override
+    public BaseResponse<JSONObject> detail(int id) {
+        Optional<StoriesSuccess> optional = storiesSuccessRepository.findById(id);
+        if (optional.isPresent()) {
+            StoriesSuccess storiesSuccess = optional.get();
+            Integer id1 = storiesSuccess.getArticleId();
+            Optional<Articlecontent> optional1 = articlecontentRepository.findById(id1);
+            if (optional1.isPresent()){
+                SCDo scDo = new SCDo();
+                Articlecontent articlecontent = optional1.get();
+                scDo.setStoriesSuccess(storiesSuccess);
+                scDo.setArticlecontent(articlecontent);
+                return setResultSuccess(scDo);
+            }
+            return setResultError("未查询到数据");
+        }
+        return setResultError("未查询到数据");
     }
 }
