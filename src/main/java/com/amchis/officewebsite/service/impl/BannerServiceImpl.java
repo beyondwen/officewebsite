@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.amchis.officewebsite.base.BaseApiService;
 import com.amchis.officewebsite.base.BaseResponse;
 import com.amchis.officewebsite.domain.Banner;
+import com.amchis.officewebsite.domain.BannerArry;
 import com.amchis.officewebsite.domain.Image;
 import com.amchis.officewebsite.jpa.BannerRepository;
 import com.amchis.officewebsite.jpa.ImageRepository;
@@ -26,17 +27,21 @@ public class BannerServiceImpl extends BaseApiService implements BannerService {
     private ImageRepository imageRepository;
 
     @Override
-    public BaseResponse<JSONObject> save(Banner banner) {
-        Integer imageId = banner.getImageId();
-        Optional<Image> image = imageRepository.findById(imageId);
-        if (image.isPresent()){
-            Image image1 = image.get();
-            String imageUrl = "/image/imageView?imgUrl="+image1.getImageUrl();
-            banner.setImageUrl(imageUrl);
-            bannerRepository.save(banner);
-            return setResultSuccess();
+    public BaseResponse<JSONObject> save(BannerArry bannerArry) {
+        Banner[] banners = bannerArry.getBanners();
+        for (Banner banner : banners) {
+            Integer imageId = banner.getImageId();
+            Optional<Image> image = imageRepository.findById(imageId);
+            if (image.isPresent()){
+                Image image1 = image.get();
+                String imageUrl = "/image/imageView?imgUrl="+image1.getImageUrl();
+                banner.setImageUrl(imageUrl);
+                bannerRepository.save(banner);
+                return setResultSuccess();
+            }
+            return setResultError("上传图片id未获取到");
         }
-        return setResultError("上传图片id未获取到");
+        return setResultError("保存失败");
     }
 
     @Override

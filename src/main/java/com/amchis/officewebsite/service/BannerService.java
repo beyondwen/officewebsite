@@ -2,7 +2,7 @@ package com.amchis.officewebsite.service;
 
 import com.alibaba.fastjson.JSONObject;
 import com.amchis.officewebsite.base.BaseResponse;
-import com.amchis.officewebsite.domain.Banner;
+import com.amchis.officewebsite.domain.BannerArry;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 public interface BannerService {
 
     @ApiOperation("保存")
-    BaseResponse<JSONObject> save(@RequestBody Banner banner);
+    BaseResponse<JSONObject> save(@RequestBody BannerArry banner);
 
     @ApiOperation("删除")
     BaseResponse<JSONObject> delete(@RequestParam("id") Integer id);

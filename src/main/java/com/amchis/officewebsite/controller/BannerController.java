@@ -2,7 +2,7 @@ package com.amchis.officewebsite.controller;
 
 import com.alibaba.fastjson.JSONObject;
 import com.amchis.officewebsite.base.BaseResponse;
-import com.amchis.officewebsite.domain.Banner;
+import com.amchis.officewebsite.domain.BannerArry;
 import com.amchis.officewebsite.service.BannerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -15,8 +15,8 @@ public class BannerController {
     private BannerService bannerService;
 
     @PostMapping("/save")
-    public BaseResponse<JSONObject> save(@RequestBody Banner banner) {
-        return bannerService.save(banner);
+    public BaseResponse<JSONObject> save(@RequestBody BannerArry bannerArry) {
+        return bannerService.save(bannerArry);
     }
 
     @GetMapping("/delete")
