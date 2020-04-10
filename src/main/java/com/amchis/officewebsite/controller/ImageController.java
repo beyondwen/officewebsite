@@ -26,8 +26,8 @@ public class ImageController {
         return imageService.imageView(imgUrl);
     }
 
-    @GetMapping("/delete")
-    public BaseResponse<JSONObject> delete(@RequestParam("id") Integer id) {
+    @GetMapping("/delete/{id}")
+    public BaseResponse<JSONObject> delete(@PathVariable("id") int id) {
         return imageService.delete(id);
     }
 }

@@ -26,8 +26,8 @@ public class StoriesSuccessController {
         return service.findPageList(page, size, pageQuery);
     }
 
-    @GetMapping("/delete")
-    public BaseResponse<JSONObject> delete(@PathVariable("id") Integer id) {
+    @GetMapping("/delete/{id}")
+    public BaseResponse<JSONObject> delete(@PathVariable("id") int id) {
         return service.delete(id);
     }
 

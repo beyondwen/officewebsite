@@ -19,13 +19,13 @@ public class BannerController {
         return bannerService.save(bannerArry);
     }
 
-    @GetMapping("/delete")
-    public BaseResponse<JSONObject> delete(@RequestParam("id") Integer id) {
+    @GetMapping("/delete/{id}")
+    public BaseResponse<JSONObject> delete(@PathVariable("id") int id) {
         return bannerService.delete(id);
     }
 
     @GetMapping("/list")
-    public BaseResponse<JSONObject> list(@RequestParam("type") Integer type) {
+    public BaseResponse<JSONObject> list(@RequestParam("type") int type) {
         return bannerService.list(type);
     }
 }
