@@ -26,7 +26,7 @@ public class ArticleController {
         return service.findPageList(page, size, pageQuery);
     }
 
-    @GetMapping("/detail")
+    @GetMapping("/detail/{id}")
     public BaseResponse<JSONObject> detail(@PathVariable("id") int id) {
         return service.detail(id);
     }

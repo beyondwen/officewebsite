@@ -31,7 +31,7 @@ public class StoriesSuccessController {
         return service.delete(id);
     }
 
-    @GetMapping("/detail")
+    @GetMapping("/detail/{id}")
     public BaseResponse<JSONObject> detail(@PathVariable("id") int id) {
         return service.detail(id);
     }
