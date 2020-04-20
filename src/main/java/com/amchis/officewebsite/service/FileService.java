@@ -2,6 +2,7 @@ package com.amchis.officewebsite.service;
 
 import com.alibaba.fastjson.JSONObject;
 import com.amchis.officewebsite.base.BaseResponse;
+import com.amchis.officewebsite.domain.FileDo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.http.ResponseEntity;
@@ -15,7 +16,7 @@ public interface FileService {
 
     @PostMapping("/uploadImage")
     @ApiOperation("图片上传")
-    BaseResponse<JSONObject> uploadImage(@RequestParam("file") MultipartFile file);
+    BaseResponse<JSONObject> upload(@RequestParam("file") MultipartFile file, FileDo fileDo);
 
     @GetMapping("/delete")
     @ApiOperation("图片删除")

@@ -37,8 +37,8 @@ public class File {
      * 排序
      */
     @ApiModelProperty("排序")
-    @Column(name = "orderNum")
-    private Integer ordernum;
+    @Column(name = "order_num")
+    private Integer orderNum;
 
     /**
      * type
