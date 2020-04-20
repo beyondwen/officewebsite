@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 @Api(tags = "图片相关")
-public interface ImageService {
+public interface FileService {
 
     @PostMapping("/uploadImage")
     @ApiOperation("图片上传")

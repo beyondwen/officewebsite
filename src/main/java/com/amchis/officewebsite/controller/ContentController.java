@@ -2,8 +2,10 @@ package com.amchis.officewebsite.controller;
 
 import com.alibaba.fastjson.JSONObject;
 import com.amchis.officewebsite.base.BaseResponse;
-import com.amchis.officewebsite.domain.BannerArry;
-import com.amchis.officewebsite.service.BannerService;
+import com.amchis.officewebsite.base.request.ContentPageQuery;
+import com.amchis.officewebsite.base.response.QueryResponseResult;
+import com.amchis.officewebsite.domain.Content;
+import com.amchis.officewebsite.service.ContentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,20 +14,20 @@ import org.springframework.web.bind.annotation.*;
 public class ContentController {
 
     @Autowired
-    private BannerService bannerService;
+    private ContentService contentService;
 
     @PostMapping("/save")
-    public BaseResponse<JSONObject> save(@RequestBody BannerArry bannerArry) {
-        return bannerService.save(bannerArry);
+    public BaseResponse<JSONObject> save(@RequestBody Content content) {
+        return contentService.save(content);
     }
 
     @GetMapping("/delete/{id}")
     public BaseResponse<JSONObject> delete(@PathVariable("id") int id) {
-        return bannerService.delete(id);
+        return contentService.delete(id);
     }
 
-    @GetMapping("/list")
-    public BaseResponse<JSONObject> list(@RequestParam("type") int type) {
-        return bannerService.list(type);
+    @GetMapping("/findPageList/{page}/{size}")
+    public QueryResponseResult findPageList(@PathVariable("page") int page, @PathVariable("size") int size, ContentPageQuery pageQuery) {
+        return contentService.findPageList(page, size, pageQuery);
     }
 }
