@@ -8,8 +8,10 @@ import com.amchis.officewebsite.base.response.CommonCode;
 import com.amchis.officewebsite.base.response.QueryResponseResult;
 import com.amchis.officewebsite.base.response.QueryResult;
 import com.amchis.officewebsite.domain.Content;
+import com.amchis.officewebsite.domain.dto.ContentDto;
 import com.amchis.officewebsite.jpa.ContentRepository;
 import com.amchis.officewebsite.service.ContentService;
+import com.amchis.officewebsite.utils.MeiteBeanUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +32,8 @@ public class ContentServiceImpl extends BaseApiService implements ContentService
     private ContentRepository contentRepository;
 
     @Override
-    public BaseResponse<JSONObject> save(Content content) {
+    public BaseResponse<JSONObject> save(ContentDto contentDto) {
+        Content content = MeiteBeanUtils.dtoToDo(contentDto, Content.class);
         Content save = contentRepository.save(content);
         if (save != null) {
             return setResultSuccess();

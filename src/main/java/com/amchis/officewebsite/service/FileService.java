@@ -14,6 +14,9 @@ public interface FileService {
     @ApiOperation("图片上传")
     BaseResponse<JSONObject> upload(@RequestParam("file") MultipartFile file);
 
+    @ApiOperation("上传视频 cover")
+    BaseResponse<JSONObject> uploadCover(@RequestParam("file") MultipartFile file,Integer videoFileId);
+
     @ApiOperation("图片删除")
     BaseResponse<JSONObject> delete(@RequestParam("id") Integer id);
 

@@ -87,4 +87,40 @@ public class FileServiceImpl extends BaseApiService implements FileService {
         }
         return setResultSuccess("删除失败");
     }
+
+    @Override
+    public BaseResponse<JSONObject> uploadCover(MultipartFile file, Integer videoFileId) {
+        if (!file.isEmpty()) {
+            //获得服务器根路径
+            String rootPath = "/home/mhsy/mhsyplatform/record/";
+            //创建的文件夹名称
+            String path = "/";
+           File dir = new File(rootPath + path);
+            if (!dir.exists()) {
+                dir.mkdirs();
+            }
+            // 写文件到服务器
+            try {
+                String fileName = file.getOriginalFilename();
+                String serverFileUrlName = UUID.randomUUID().toString();
+                String serverPath = dir.getAbsolutePath() + "/" + serverFileUrlName + "." + fileName.substring(fileName.lastIndexOf(".") + 1);
+                File serverFile = new File(serverPath);
+                file.transferTo(serverFile);
+                TransferFile systemTransferFile = new TransferFile();
+                systemTransferFile.setFileUrl(serverPath);
+                systemTransferFile.setVideoCoverId(videoFileId);
+                TransferFile savedTransferFile = fileRepository.save(systemTransferFile);
+                ViewTransferFile viewTransferFile = MeiteBeanUtils.doToDto(savedTransferFile, ViewTransferFile.class);
+                if (viewTransferFile != null) {
+                    viewTransferFile.setFileUrl("/file/view?url="+serverPath);
+                    return setResultSuccess(viewTransferFile);
+                }
+                return setResultError("上传失败");
+            } catch (Exception e) {
+                e.printStackTrace();
+                return setResultError("上传失败");
+            }
+        }
+        return setResultError("上传失败");
+    }
 }

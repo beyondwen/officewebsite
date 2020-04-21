@@ -4,7 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.amchis.officewebsite.base.BaseResponse;
 import com.amchis.officewebsite.base.request.ContentPageQuery;
 import com.amchis.officewebsite.base.response.QueryResponseResult;
-import com.amchis.officewebsite.domain.Content;
+import com.amchis.officewebsite.domain.dto.ContentDto;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 public interface ContentService {
 
     @ApiOperation("保存")
-    BaseResponse<JSONObject> save(@RequestBody Content content);
+    BaseResponse<JSONObject> save(@RequestBody ContentDto contentDto);
 
     @ApiOperation("删除")
     BaseResponse<JSONObject> delete(@RequestParam("id") Integer id);

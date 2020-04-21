@@ -4,7 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.amchis.officewebsite.base.BaseResponse;
 import com.amchis.officewebsite.base.request.ContentPageQuery;
 import com.amchis.officewebsite.base.response.QueryResponseResult;
-import com.amchis.officewebsite.domain.Content;
+import com.amchis.officewebsite.domain.dto.ContentDto;
 import com.amchis.officewebsite.service.ContentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -17,7 +17,7 @@ public class ContentController {
     private ContentService contentService;
 
     @PostMapping("/save")
-    public BaseResponse<JSONObject> save(@RequestBody Content content) {
+    public BaseResponse<JSONObject> save(@RequestBody ContentDto content) {
         return contentService.save(content);
     }
 

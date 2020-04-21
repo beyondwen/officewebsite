@@ -59,7 +59,7 @@ public class TransferFile {
      */
     @ApiModelProperty("缩略图url")
     @Column(name = "video_cover_id")
-    private String videoCoverId;
+    private Integer videoCoverId;
 
     /**
      * 缩略图url

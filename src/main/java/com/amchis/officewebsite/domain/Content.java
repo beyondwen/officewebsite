@@ -3,6 +3,8 @@ package com.amchis.officewebsite.domain;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
 
@@ -14,6 +16,8 @@ import javax.persistence.*;
 @Table(name = "content")
 @Data
 @ApiModel
+@DynamicInsert
+@DynamicUpdate
 public class Content {
 
     /**
@@ -30,14 +34,14 @@ public class Content {
      */
     @ApiModelProperty("一级页面")
     @Column(name = "first_page")
-    private Integer firstPage;
+    private String firstPage;
 
     /**
      * 二级页面
      */
     @ApiModelProperty("二级页面")
     @Column(name = "second_page")
-    private Integer secondPage;
+    private String secondPage;
 
     /**
      * 创建人
@@ -59,13 +63,6 @@ public class Content {
     @ApiModelProperty("更新时间")
     @Column(name = "update_time")
     private String updateTime;
-
-    /**
-     * 图片id
-     */
-    @ApiModelProperty("图片id")
-    @Column(name = "image_id")
-    private Integer imageId;
 
     /**
      * 文本内容

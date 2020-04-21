@@ -20,6 +20,11 @@ public class FileController {
         return fileService.upload(file);
     }
 
+    @PostMapping("/uploadCover")
+    public BaseResponse<JSONObject> uploadCover(MultipartFile file, Integer videFileId) {
+        return fileService.uploadCover(file, videFileId);
+    }
+
     //下载(展示项目页面上的图片)
     @GetMapping("/view")
     public ResponseEntity<byte[]> view(@RequestParam("url") String url) {
