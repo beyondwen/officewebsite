@@ -9,6 +9,9 @@ import lombok.Data;
 @ApiModel
 public class BannerDto {
 
+    @ApiModelProperty("id 为空 新增 ")
+    private Integer id;
+
     @ApiModelProperty("一级页面")
     private String firstPage;
 

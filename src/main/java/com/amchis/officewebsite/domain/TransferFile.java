@@ -66,5 +66,5 @@ public class TransferFile {
      */
     @ApiModelProperty("关联id")
     @Column(name = "related_id")
-    private String relatedId;
+    private Integer relatedId;
 }
