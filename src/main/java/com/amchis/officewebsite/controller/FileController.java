@@ -22,8 +22,8 @@ public class FileController {
 
     //下载(展示项目页面上的图片)
     @GetMapping("/view")
-    public ResponseEntity<byte[]> view(@RequestParam("imgUrl") String imgUrl) {
-        return fileService.view(imgUrl);
+    public ResponseEntity<byte[]> view(@RequestParam("url") String url) {
+        return fileService.view(url);
     }
 
     @GetMapping("/delete/{id}")
