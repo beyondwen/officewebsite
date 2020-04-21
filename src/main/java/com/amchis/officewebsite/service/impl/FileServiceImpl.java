@@ -52,6 +52,7 @@ public class FileServiceImpl extends BaseApiService implements FileService {
                 TransferFile savedTransferFile = fileRepository.save(systemTransferFile);
                 ViewTransferFile viewTransferFile = MeiteBeanUtils.doToDto(savedTransferFile, ViewTransferFile.class);
                 if (viewTransferFile != null) {
+                    viewTransferFile.setFileUrl("/file/view?url="+serverPath);
                     return setResultSuccess(viewTransferFile);
                 }
                 return setResultError("上传失败");
