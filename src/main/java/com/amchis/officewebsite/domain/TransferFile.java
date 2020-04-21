@@ -14,7 +14,7 @@ import javax.persistence.*;
 @Table(name = "file")
 @Data
 @ApiModel
-public class File {
+public class TransferFile {
 
 
     /**
@@ -58,6 +58,13 @@ public class File {
      * 缩略图url
      */
     @ApiModelProperty("缩略图url")
-    @Column(name = "cover_image_file_id")
-    private String coverImageFileId;
+    @Column(name = "video_cover_id")
+    private String videoCoverId;
+
+    /**
+     * 缩略图url
+     */
+    @ApiModelProperty("关联id")
+    @Column(name = "related_id")
+    private String relatedId;
 }

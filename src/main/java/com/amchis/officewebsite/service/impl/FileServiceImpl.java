@@ -3,8 +3,8 @@ package com.amchis.officewebsite.service.impl;
 import com.alibaba.fastjson.JSONObject;
 import com.amchis.officewebsite.base.BaseApiService;
 import com.amchis.officewebsite.base.BaseResponse;
-import com.amchis.officewebsite.domain.File;
-import com.amchis.officewebsite.domain.FileDo;
+import com.amchis.officewebsite.domain.TransferFile;
+import com.amchis.officewebsite.domain.viewdo.ViewTransferFile;
 import com.amchis.officewebsite.jpa.FileRepository;
 import com.amchis.officewebsite.service.FileService;
 import com.amchis.officewebsite.utils.MeiteBeanUtils;
@@ -19,6 +19,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
 import java.util.UUID;
 
 @Service
@@ -29,7 +30,7 @@ public class FileServiceImpl extends BaseApiService implements FileService {
     private FileRepository fileRepository;
 
     @Override
-    public BaseResponse upload(@RequestParam("file") MultipartFile file, FileDo fileDo) {
+    public BaseResponse upload(@RequestParam("file") MultipartFile file) {
         if (!file.isEmpty()) {
             //获得服务器根路径
             String rootPath = "/home/mhsy/mhsyplatform/record/";
@@ -44,13 +45,14 @@ public class FileServiceImpl extends BaseApiService implements FileService {
                 String fileName = file.getOriginalFilename();
                 String serverFileUrlName = UUID.randomUUID().toString();
                 String serverPath = dir.getAbsolutePath() + "/" + serverFileUrlName + "." + fileName.substring(fileName.lastIndexOf(".") + 1);
-                java.io.File serverFile = new java.io.File(serverPath);
+                File serverFile = new File(serverPath);
                 file.transferTo(serverFile);
-                File file1 = MeiteBeanUtils.doToDto(fileDo, File.class);
-                file1.setFileUrl(serverPath);
-                File save = fileRepository.save(file1);
-                if (save != null) {
-                    return setResultSuccess(save);
+                TransferFile systemTransferFile = new TransferFile();
+                systemTransferFile.setFileUrl(serverPath);
+                TransferFile savedTransferFile = fileRepository.save(systemTransferFile);
+                ViewTransferFile viewTransferFile = MeiteBeanUtils.doToDto(savedTransferFile, ViewTransferFile.class);
+                if (viewTransferFile != null) {
+                    return setResultSuccess(viewTransferFile);
                 }
                 return setResultError("上传失败");
             } catch (Exception e) {
@@ -62,7 +64,7 @@ public class FileServiceImpl extends BaseApiService implements FileService {
     }
 
 
-    public ResponseEntity<byte[]> imageView(String imgUrl) {
+    public ResponseEntity<byte[]> view(String imgUrl) {
         try {
             HttpHeaders headers = new HttpHeaders();
             java.io.File file = new java.io.File(imgUrl);
@@ -77,7 +79,7 @@ public class FileServiceImpl extends BaseApiService implements FileService {
 
     @Override
     public BaseResponse<JSONObject> delete(Integer id) {
-        File one = fileRepository.getOne(id);
+        TransferFile one = fileRepository.getOne(id);
         if (one != null) {
             fileRepository.delete(one);
             return setResultSuccess("删除成功");

@@ -2,7 +2,6 @@ package com.amchis.officewebsite.controller;
 
 import com.alibaba.fastjson.JSONObject;
 import com.amchis.officewebsite.base.BaseResponse;
-import com.amchis.officewebsite.domain.FileDo;
 import com.amchis.officewebsite.service.FileService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -17,14 +16,14 @@ public class FileController {
     private FileService fileService;
 
     @PostMapping("/upload")
-    public BaseResponse<JSONObject> upload(MultipartFile file,FileDo fileDo) {
-        return fileService.upload(file, fileDo);
+    public BaseResponse<JSONObject> upload(MultipartFile file) {
+        return fileService.upload(file);
     }
 
     //下载(展示项目页面上的图片)
-    @GetMapping("/imageView")
-    public ResponseEntity<byte[]> imageView(@RequestParam("imgUrl") String imgUrl) {
-        return fileService.imageView(imgUrl);
+    @GetMapping("/view")
+    public ResponseEntity<byte[]> view(@RequestParam("imgUrl") String imgUrl) {
+        return fileService.view(imgUrl);
     }
 
     @GetMapping("/delete/{id}")
