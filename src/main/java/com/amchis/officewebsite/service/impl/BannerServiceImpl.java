@@ -11,9 +11,12 @@ import com.amchis.officewebsite.domain.Banner;
 import com.amchis.officewebsite.domain.FileArry;
 import com.amchis.officewebsite.domain.TransferFile;
 import com.amchis.officewebsite.domain.dto.BannerDto;
+import com.amchis.officewebsite.domain.dto.TransferFileDto;
+import com.amchis.officewebsite.domain.dto.TransferFileVideoDto;
 import com.amchis.officewebsite.jpa.BannerRepository;
 import com.amchis.officewebsite.jpa.FileRepository;
 import com.amchis.officewebsite.service.BannerService;
+import com.amchis.officewebsite.utils.MeiteBeanUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -151,17 +154,29 @@ public class BannerServiceImpl extends BaseApiService implements BannerService {
         List<TransferFile> bannerFiles = fileRepository.findByRelatedId(banner.getId());
         List<Object> bannerLink = new ArrayList<>();
         for (TransferFile bannerFile : bannerFiles) {
-            bannerFile.setLink("/file/view?url=" + bannerFile.getFileUrl());
+            TransferFileDto transferFileDto = MeiteBeanUtils.doToDto(bannerFile, TransferFileDto.class);
+            transferFileDto.setFileUrl("/file/view?url=" + bannerFile.getFileUrl());
             TransferFile transferFile = fileRepository.findByRelatedIdAndOrderNum(bannerFile.getRelatedId(), bannerFile.getOrderNum());
             TransferFile transferFileVideo = fileRepository.findByVideoCoverId(transferFile.getId());
-            if (transferFileVideo != null){
-                List<TransferFile> video = new ArrayList<>();
-                video.add(bannerFile);
-                transferFileVideo.setLink("/file/view?url=" + transferFileVideo.getFileUrl());
-                video.add(transferFileVideo);
+            if (transferFileVideo != null) {
+                TransferFileVideoDto video = new TransferFileVideoDto();
+                video.setCoverId(transferFileVideo.getId());
+                video.setCoverFileUrl("/file/view?url=" + transferFileVideo.getFileUrl());
+                video.setCoverLink(transferFileVideo.getLink());
+                video.setCoverOrderNum(transferFileVideo.getOrderNum());
+                video.setCoverRelatedId(transferFileVideo.getRelatedId());
+                video.setCoverType(transferFileVideo.getType());
+                video.setCoverVideoCoverId(transferFileVideo.getVideoCoverId());
+                video.setId(transferFileDto.getId());
+                video.setFileUrl(transferFileDto.getFileUrl());
+                video.setLink(transferFileDto.getLink());
+                video.setOrderNum(transferFileDto.getOrderNum());
+                video.setType(transferFileDto.getType());
+                video.setVideoCoverId(transferFileDto.getVideoCoverId());
+                video.setRelatedId(transferFileDto.getRelatedId());
                 bannerLink.add(video);
-            }else {
-                bannerLink.add(bannerFile);
+            } else {
+                bannerLink.add(transferFileDto);
             }
         }
         return setResultSuccess(bannerLink);
