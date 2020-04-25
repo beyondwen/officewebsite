@@ -30,4 +30,9 @@ public class BannerController {
     public QueryResponseResult findPageList(@PathVariable("page") int page, @PathVariable("size") int size, BannerPageQuery pageQuery) {
         return bannerService.findPageList(page, size, pageQuery);
     }
+
+    @GetMapping("/findByFirstPage")
+    public BaseResponse<JSONObject> findByFirstPage(@RequestParam String firstPage) {
+        return bannerService.findByFirstPage(firstPage);
+    }
 }

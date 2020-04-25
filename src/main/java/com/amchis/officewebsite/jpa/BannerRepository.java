@@ -10,4 +10,6 @@ public interface BannerRepository extends JpaRepository<Banner, Integer> {
 
     Page<Banner> findAll(Specification specification, Pageable pageable);
 
+    Banner findTopByFirstPageOrderByCreateTimeDesc(String firstPage);
+
 }

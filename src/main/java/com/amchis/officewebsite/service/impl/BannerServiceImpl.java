@@ -25,6 +25,8 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.criteria.Predicate;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Optional;
 
 @Service
@@ -46,6 +48,9 @@ public class BannerServiceImpl extends BaseApiService implements BannerService {
         if (id1 == null) {
             Banner banner = new Banner();
             banner.setFirstPage(firstPage);
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            String format = sdf.format(new Date());
+            banner.setCreateTime(format);
             Banner save = bannerRepository.save(banner);
             id = save.getId();
             for (FileArry fileArry : fileArries) {
@@ -55,6 +60,7 @@ public class BannerServiceImpl extends BaseApiService implements BannerService {
                     transferFile.setLink(fileArry.getLink());
                     transferFile.setOrderNum(fileArry.getOrder());
                     transferFile.setRelatedId(id);
+                    transferFile.setType(fileArry.getType());
                     fileRepository.save(transferFile);
                 }
             }
@@ -135,5 +141,11 @@ public class BannerServiceImpl extends BaseApiService implements BannerService {
         //数据总记录数
         queryResult.setTotal(all.getTotalElements());
         return new QueryResponseResult(CommonCode.SUCCESS, queryResult);
+    }
+
+    @Override
+    public BaseResponse<JSONObject> findByFirstPage(String firstPage) {
+        Banner banner = bannerRepository.findTopByFirstPageOrderByCreateTimeDesc(firstPage);
+        return setResultSuccess(banner);
     }
 }

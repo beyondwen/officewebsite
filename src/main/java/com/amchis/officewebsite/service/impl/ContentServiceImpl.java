@@ -23,6 +23,8 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.criteria.Predicate;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 @Service
 @Slf4j
@@ -34,6 +36,9 @@ public class ContentServiceImpl extends BaseApiService implements ContentService
     @Override
     public BaseResponse<JSONObject> save(ContentDto contentDto) {
         Content content = MeiteBeanUtils.dtoToDo(contentDto, Content.class);
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String format = sdf.format(new Date());
+        content.setCreateTime(format);
         Content save = contentRepository.save(content);
         if (save != null) {
             return setResultSuccess();
@@ -95,5 +100,11 @@ public class ContentServiceImpl extends BaseApiService implements ContentService
         //数据总记录数
         queryResult.setTotal(all.getTotalElements());
         return new QueryResponseResult(CommonCode.SUCCESS, queryResult);
+    }
+
+    @Override
+    public BaseResponse<JSONObject> findByFirstPageOrSecondPage(String firstPage, String secondPage) {
+        Content content = contentRepository.findTopByFirstPageOrSecondPageOrderByCreateTimeDesc(firstPage, secondPage);
+        return setResultSuccess(content);
     }
 }

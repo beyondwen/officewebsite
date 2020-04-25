@@ -14,6 +14,9 @@ public class FileArry {
     @ApiModelProperty("链接")
     private String link;
 
+    @ApiModelProperty("type  1 图片  2 视频")
+    private Integer type;
+
     @ApiModelProperty("order")
     private Integer order;
 }

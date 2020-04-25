@@ -3,6 +3,8 @@ package com.amchis.officewebsite.domain;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
 
@@ -14,6 +16,8 @@ import javax.persistence.*;
 @Table(name = "banner")
 @Data
 @ApiModel
+@DynamicInsert
+@DynamicUpdate
 public class Banner {
 
     /**

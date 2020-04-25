@@ -30,4 +30,9 @@ public class ContentController {
     public QueryResponseResult findPageList(@PathVariable("page") int page, @PathVariable("size") int size, ContentPageQuery pageQuery) {
         return contentService.findPageList(page, size, pageQuery);
     }
+
+    @GetMapping("/findByFirstPageOrSecondPage")
+    public BaseResponse<JSONObject> findByFirstPageOrSecondPage(String firstPage, String secondPage) {
+        return contentService.findByFirstPageOrSecondPage(firstPage, secondPage);
+    }
 }
