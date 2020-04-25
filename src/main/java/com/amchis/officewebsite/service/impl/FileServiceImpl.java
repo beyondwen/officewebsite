@@ -52,7 +52,7 @@ public class FileServiceImpl extends BaseApiService implements FileService {
                 TransferFile savedTransferFile = fileRepository.save(systemTransferFile);
                 ViewTransferFile viewTransferFile = MeiteBeanUtils.doToDto(savedTransferFile, ViewTransferFile.class);
                 if (viewTransferFile != null) {
-                    viewTransferFile.setFileUrl("/file/view?url="+serverPath);
+                    viewTransferFile.setFileUrl("/file/view?url=" + serverPath);
                     return setResultSuccess(viewTransferFile);
                 }
                 return setResultError("上传失败");
@@ -95,7 +95,7 @@ public class FileServiceImpl extends BaseApiService implements FileService {
             String rootPath = "/home/mhsy/mhsyplatform/record/";
             //创建的文件夹名称
             String path = "/";
-           File dir = new File(rootPath + path);
+            File dir = new File(rootPath + path);
             if (!dir.exists()) {
                 dir.mkdirs();
             }
@@ -112,7 +112,7 @@ public class FileServiceImpl extends BaseApiService implements FileService {
                 TransferFile savedTransferFile = fileRepository.save(systemTransferFile);
                 ViewTransferFile viewTransferFile = MeiteBeanUtils.doToDto(savedTransferFile, ViewTransferFile.class);
                 if (viewTransferFile != null) {
-                    viewTransferFile.setFileUrl("/file/view?url="+serverPath);
+                    viewTransferFile.setFileUrl("/file/view?url=" + serverPath);
                     return setResultSuccess(viewTransferFile);
                 }
                 return setResultError("上传失败");
@@ -122,5 +122,19 @@ public class FileServiceImpl extends BaseApiService implements FileService {
             }
         }
         return setResultError("上传失败");
+    }
+
+    @Override
+    public BaseResponse<JSONObject> viderCover(Integer relatedId, Integer orderNum) {
+        TransferFile transferFile = fileRepository.findByRelatedIdAndOrderNum(relatedId, orderNum);
+        if (transferFile != null) {
+            TransferFile cover = fileRepository.findByVideoCoverId(transferFile.getId());
+            if (cover != null) {
+                cover.setLink("/file/view?url=" + cover.getFileUrl());
+                return setResultSuccess(cover);
+            }
+            return setResultError("未找到");
+        }
+        return setResultError("未找到");
     }
 }

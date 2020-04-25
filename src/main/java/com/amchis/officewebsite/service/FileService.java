@@ -22,4 +22,7 @@ public interface FileService {
 
     @ApiOperation("文件下载/图片回显")
     ResponseEntity<byte[]> view(@RequestParam("imgUrl") String imgUrl);
+
+    @ApiOperation("视频封面")
+    BaseResponse<JSONObject> viderCover(Integer relatedId,Integer orderNum);
 }

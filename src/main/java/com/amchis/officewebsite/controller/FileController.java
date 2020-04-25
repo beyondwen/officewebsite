@@ -35,4 +35,10 @@ public class FileController {
     public BaseResponse<JSONObject> delete(@PathVariable("id") int id) {
         return fileService.delete(id);
     }
+
+
+    @GetMapping("/viderCover/{bannerId}/{orderNum}")
+    public BaseResponse<JSONObject> findVideoCover(@PathVariable("bannerId") Integer bannerId,@PathVariable("orderNum") Integer orderNum) {
+        return fileService.viderCover(bannerId, orderNum);
+    }
 }
