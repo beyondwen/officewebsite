@@ -26,7 +26,9 @@ import org.springframework.stereotype.Service;
 
 import javax.persistence.criteria.Predicate;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -146,6 +148,22 @@ public class BannerServiceImpl extends BaseApiService implements BannerService {
     @Override
     public BaseResponse<JSONObject> findByFirstPage(String firstPage) {
         Banner banner = bannerRepository.findTopByFirstPageOrderByCreateTimeDesc(firstPage);
-        return setResultSuccess(banner);
+        List<TransferFile> bannerFiles = fileRepository.findByRelatedId(banner.getId());
+        List<Object> bannerLink = new ArrayList<>();
+        for (TransferFile bannerFile : bannerFiles) {
+            bannerFile.setLink("/file/view?url=" + bannerFile.getFileUrl());
+            TransferFile transferFile = fileRepository.findByRelatedIdAndOrderNum(bannerFile.getRelatedId(), bannerFile.getOrderNum());
+            TransferFile transferFileVideo = fileRepository.findByVideoCoverId(transferFile.getId());
+            if (transferFileVideo != null){
+                List<TransferFile> video = new ArrayList<>();
+                video.add(bannerFile);
+                transferFileVideo.setLink("/file/view?url=" + transferFileVideo.getFileUrl());
+                video.add(transferFileVideo);
+                bannerLink.add(video);
+            }else {
+                bannerLink.add(bannerFile);
+            }
+        }
+        return setResultSuccess(bannerLink);
     }
 }
