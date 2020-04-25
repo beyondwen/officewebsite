@@ -104,7 +104,16 @@ public class ContentServiceImpl extends BaseApiService implements ContentService
 
     @Override
     public BaseResponse<JSONObject> findByFirstPageOrSecondPage(String firstPage, String secondPage) {
-        Content content = contentRepository.findTopByFirstPageOrSecondPageOrderByCreateTimeDesc(firstPage, secondPage);
+        Content content = new Content();
+        if (StringUtils.isNotEmpty(firstPage) && StringUtils.isNotEmpty(secondPage)) {
+            content = contentRepository.findTopByFirstPageAndSecondPageOrderByCreateTimeDesc(firstPage, secondPage);
+        }
+        if (StringUtils.isEmpty(firstPage) && StringUtils.isNotEmpty(secondPage)) {
+            content = contentRepository.findTopBySecondPageOrderByCreateTimeDesc(secondPage);
+        }
+        if (StringUtils.isNotEmpty(firstPage) && StringUtils.isEmpty(secondPage)) {
+            content = contentRepository.findTopByFirstPageAndSecondPageIsNullOrderByCreateTimeDesc(firstPage);
+        }
         return setResultSuccess(content);
     }
 }

@@ -11,5 +11,7 @@ public interface ContentRepository extends JpaRepository<Content, Integer> {
 
     Page<Content> findAll(Specification specification, Pageable pageable);
 
-    Content findTopByFirstPageOrSecondPageOrderByCreateTimeDesc(String firstPage,String secondPage);
+    Content findTopByFirstPageAndSecondPageOrderByCreateTimeDesc(String firstPage,String secondPage);
+    Content findTopByFirstPageAndSecondPageIsNullOrderByCreateTimeDesc(String firstPage);
+    Content findTopBySecondPageOrderByCreateTimeDesc(String secondPage);
 }

@@ -151,34 +151,38 @@ public class BannerServiceImpl extends BaseApiService implements BannerService {
     @Override
     public BaseResponse<JSONObject> findByFirstPage(String firstPage) {
         Banner banner = bannerRepository.findTopByFirstPageOrderByCreateTimeDesc(firstPage);
-        List<TransferFile> bannerFiles = fileRepository.findByRelatedId(banner.getId());
-        List<Object> bannerLink = new ArrayList<>();
-        for (TransferFile bannerFile : bannerFiles) {
-            TransferFileDto transferFileDto = MeiteBeanUtils.doToDto(bannerFile, TransferFileDto.class);
-            transferFileDto.setFileUrl("/file/view?url=" + bannerFile.getFileUrl());
-            TransferFile transferFile = fileRepository.findByRelatedIdAndOrderNum(bannerFile.getRelatedId(), bannerFile.getOrderNum());
-            TransferFile transferFileVideo = fileRepository.findByVideoCoverId(transferFile.getId());
-            if (transferFileVideo != null) {
-                TransferFileVideoDto video = new TransferFileVideoDto();
-                video.setCoverId(transferFileVideo.getId());
-                video.setCoverFileUrl("/file/view?url=" + transferFileVideo.getFileUrl());
-                video.setCoverLink(transferFileVideo.getLink());
-                video.setCoverOrderNum(transferFileVideo.getOrderNum());
-                video.setCoverRelatedId(transferFileVideo.getRelatedId());
-                video.setCoverType(transferFileVideo.getType());
-                video.setCoverVideoCoverId(transferFileVideo.getVideoCoverId());
-                video.setId(transferFileDto.getId());
-                video.setFileUrl(transferFileDto.getFileUrl());
-                video.setLink(transferFileDto.getLink());
-                video.setOrderNum(transferFileDto.getOrderNum());
-                video.setType(transferFileDto.getType());
-                video.setVideoCoverId(transferFileDto.getVideoCoverId());
-                video.setRelatedId(transferFileDto.getRelatedId());
-                bannerLink.add(video);
-            } else {
-                bannerLink.add(transferFileDto);
+        if (banner != null){
+
+            List<TransferFile> bannerFiles = fileRepository.findByRelatedId(banner.getId());
+            List<Object> bannerLink = new ArrayList<>();
+            for (TransferFile bannerFile : bannerFiles) {
+                TransferFileDto transferFileDto = MeiteBeanUtils.doToDto(bannerFile, TransferFileDto.class);
+                transferFileDto.setFileUrl("/file/view?url=" + bannerFile.getFileUrl());
+                TransferFile transferFile = fileRepository.findByRelatedIdAndOrderNum(bannerFile.getRelatedId(), bannerFile.getOrderNum());
+                TransferFile transferFileVideo = fileRepository.findByVideoCoverId(transferFile.getId());
+                if (transferFileVideo != null) {
+                    TransferFileVideoDto video = new TransferFileVideoDto();
+                    video.setCoverId(transferFileVideo.getId());
+                    video.setCoverFileUrl("/file/view?url=" + transferFileVideo.getFileUrl());
+                    video.setCoverLink(transferFileVideo.getLink());
+                    video.setCoverOrderNum(transferFileVideo.getOrderNum());
+                    video.setCoverRelatedId(transferFileVideo.getRelatedId());
+                    video.setCoverType(transferFileVideo.getType());
+                    video.setCoverVideoCoverId(transferFileVideo.getVideoCoverId());
+                    video.setId(transferFileDto.getId());
+                    video.setFileUrl(transferFileDto.getFileUrl());
+                    video.setLink(transferFileDto.getLink());
+                    video.setOrderNum(transferFileDto.getOrderNum());
+                    video.setType(transferFileDto.getType());
+                    video.setVideoCoverId(transferFileDto.getVideoCoverId());
+                    video.setRelatedId(transferFileDto.getRelatedId());
+                    bannerLink.add(video);
+                } else {
+                    bannerLink.add(transferFileDto);
+                }
             }
+            return setResultSuccess(bannerLink);
         }
-        return setResultSuccess(bannerLink);
+        return setResultError("未找到");
     }
 }
