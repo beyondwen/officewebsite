@@ -67,4 +67,23 @@ public class TransferFile {
     @ApiModelProperty("关联id")
     @Column(name = "related_id")
     private Integer relatedId;
+
+    @ApiModelProperty("创建人")
+    @Column(name = "create_username")
+    private String createUsername;
+
+    /**
+     * 创建时间
+     */
+    @ApiModelProperty("创建时间")
+    @Column(name = "create_time")
+    private String createTime;
+
+    /**
+     * 更新时间
+     */
+    @ApiModelProperty("更新时间")
+    @Column(name = "update_time")
+    private String updateTime;
+
 }

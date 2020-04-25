@@ -56,6 +56,7 @@ public class BannerServiceImpl extends BaseApiService implements BannerService {
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             String format = sdf.format(new Date());
             banner.setCreateTime(format);
+            banner.setUpdateTime(format);
             Banner save = bannerRepository.save(banner);
             id = save.getId();
             for (FileArry fileArry : fileArries) {
@@ -66,6 +67,8 @@ public class BannerServiceImpl extends BaseApiService implements BannerService {
                     transferFile.setOrderNum(fileArry.getOrder());
                     transferFile.setRelatedId(id);
                     transferFile.setType(fileArry.getType());
+                    transferFile.setCreateTime(format);
+                    transferFile.setUpdateTime(format);
                     fileRepository.save(transferFile);
                 }
             }
@@ -80,10 +83,14 @@ public class BannerServiceImpl extends BaseApiService implements BannerService {
                 for (FileArry fileArry : fileArries) {
                     Optional<TransferFile> optional1 = fileRepository.findById(fileArry.getFileId());
                     if (optional1.isPresent()) {
+                        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                        String format = sdf.format(new Date());
                         TransferFile transferFile = optional1.get();
                         transferFile.setLink(fileArry.getLink());
                         transferFile.setOrderNum(fileArry.getOrder());
                         transferFile.setRelatedId(id);
+                        transferFile.setCreateTime(format);
+                        transferFile.setUpdateTime(format);
                         fileRepository.save(transferFile);
                     }
                 }
@@ -176,6 +183,9 @@ public class BannerServiceImpl extends BaseApiService implements BannerService {
                     video.setType(transferFileDto.getType());
                     video.setVideoCoverId(transferFileDto.getVideoCoverId());
                     video.setRelatedId(transferFileDto.getRelatedId());
+                    video.setCreateTime(transferFileDto.getCreateTime());
+                    video.setUpdateTime(transferFileDto.getUpdateTime());
+                    video.setCreateUsername(transferFileDto.getCreateUsername());
                     bannerLink.add(video);
                 } else {
                     bannerLink.add(transferFileDto);

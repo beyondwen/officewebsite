@@ -55,4 +55,19 @@ public class TransferFileDto {
      */
     @ApiModelProperty("关联id")
     private Integer relatedId;
+
+    @ApiModelProperty("创建人")
+    private String createUsername;
+
+    /**
+     * 创建时间
+     */
+    @ApiModelProperty("创建时间")
+    private String createTime;
+
+    /**
+     * 更新时间
+     */
+    @ApiModelProperty("更新时间")
+    private String updateTime;
 }
