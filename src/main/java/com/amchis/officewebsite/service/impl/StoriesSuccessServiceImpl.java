@@ -71,7 +71,7 @@ public class StoriesSuccessServiceImpl extends BaseApiService implements Stories
             if (StringUtils.isNotEmpty(endTime)) {
                 predicate.getExpressions().add(cb.lessThanOrEqualTo(root.get("createTime").as(String.class), endTime));
             }
-            if (StringUtils.isNotEmpty(title)) {
+            if (StringUtils.isNotEmpty(username)) {
                 predicate = cb.and(predicate, cb.like(root.get("username"), "%" + username + "%"));
             }
             if (StringUtils.isNotEmpty(source)) {
