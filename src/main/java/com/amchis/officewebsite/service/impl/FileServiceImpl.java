@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -72,6 +73,26 @@ public class FileServiceImpl extends BaseApiService implements FileService {
             headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
             headers.setContentDispositionFormData("attachment", imgUrl);
             return new ResponseEntity<byte[]>(FileUtils.readFileToByteArray(file), headers, HttpStatus.OK);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public ResponseEntity<byte[]> articlView(Integer imageId) {
+        try {
+            Optional<TransferFile> optional = fileRepository.findById(imageId);
+            if (optional.isPresent()) {
+                HttpHeaders headers = new HttpHeaders();
+                TransferFile transferFile = optional.get();
+                String fileUrl = transferFile.getFileUrl();
+                File file = new File(fileUrl);
+                headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
+                headers.setContentDispositionFormData("attachment", fileUrl);
+                return new ResponseEntity<byte[]>(FileUtils.readFileToByteArray(file), headers, HttpStatus.OK);
+
+            }
+            return null;
         } catch (Exception e) {
             e.printStackTrace();
         }

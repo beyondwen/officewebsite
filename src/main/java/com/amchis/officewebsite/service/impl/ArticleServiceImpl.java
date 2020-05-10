@@ -80,6 +80,7 @@ public class ArticleServiceImpl extends BaseApiService implements ArticleService
             return predicate;
         };
         Page<Article> all = articleRepository.findAll(specification, pageable);
+
         QueryResult<Article> queryResult = new QueryResult<>();
         //数据列表
         queryResult.setList(all.getContent());

@@ -31,6 +31,11 @@ public class FileController {
         return fileService.view(url);
     }
 
+    @GetMapping("/view")
+    public ResponseEntity<byte[]> articlView(@RequestParam("imageId") Integer imageId) {
+        return fileService.articlView(imageId);
+    }
+
     @GetMapping("/delete/{id}")
     public BaseResponse<JSONObject> delete(@PathVariable("id") int id) {
         return fileService.delete(id);
