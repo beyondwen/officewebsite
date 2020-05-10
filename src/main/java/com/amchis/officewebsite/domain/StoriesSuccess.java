@@ -2,6 +2,8 @@ package com.amchis.officewebsite.domain;
 
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
 
@@ -12,6 +14,8 @@ import javax.persistence.*;
 @Entity
 @Table(name = "stories_success")
 @Data
+@DynamicUpdate
+@DynamicInsert
 public class StoriesSuccess {
 
 
@@ -36,7 +40,7 @@ public class StoriesSuccess {
      */
     @ApiModelProperty("状态")
     @Column(name = "body_status")
-    private String bodyStatus;
+    private Integer bodyStatus;
 
     /**
      * 置顶排序

@@ -9,7 +9,7 @@ import lombok.Data;
  * Create at 2020-03-23 10:13
  */
 @Data
-@ApiModel(value = "文章信息")
+@ApiModel(value = "文章状态更新")
 public class ArticleUpdate {
 
 

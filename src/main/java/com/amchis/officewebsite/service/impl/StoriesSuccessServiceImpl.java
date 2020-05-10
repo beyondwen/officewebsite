@@ -7,6 +7,7 @@ import com.amchis.officewebsite.base.request.PageQuery;
 import com.amchis.officewebsite.base.response.CommonCode;
 import com.amchis.officewebsite.base.response.QueryResponseResult;
 import com.amchis.officewebsite.base.response.QueryResult;
+import com.amchis.officewebsite.domain.ArticleUpdate;
 import com.amchis.officewebsite.domain.Articlecontent;
 import com.amchis.officewebsite.domain.SCDo;
 import com.amchis.officewebsite.domain.StoriesSuccess;
@@ -113,5 +114,19 @@ public class StoriesSuccessServiceImpl extends BaseApiService implements Stories
             return setResultError("未查询到数据");
         }
         return setResultError("未查询到数据");
+    }
+
+    @Override
+    public BaseResponse<JSONObject> updateStatus(ArticleUpdate articleUpdate) {
+        Integer id = articleUpdate.getId();
+        Integer bodyStatus = articleUpdate.getBodyStatus();
+        Optional<StoriesSuccess> optional = storiesSuccessRepository.findById(id);
+        if (optional.isPresent()) {
+            StoriesSuccess storiesSuccess = optional.get();
+            storiesSuccess.setBodyStatus(bodyStatus);
+            storiesSuccessRepository.save(storiesSuccess);
+            return setResultSuccess("更新成功");
+        }
+        return setResultSuccess("更新失败");
     }
 }

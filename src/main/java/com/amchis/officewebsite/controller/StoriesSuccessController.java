@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.amchis.officewebsite.base.BaseResponse;
 import com.amchis.officewebsite.base.request.PageQuery;
 import com.amchis.officewebsite.base.response.QueryResponseResult;
+import com.amchis.officewebsite.domain.ArticleUpdate;
 import com.amchis.officewebsite.domain.StoriesSuccess;
 import com.amchis.officewebsite.service.StoriesSuccessService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,5 +35,10 @@ public class StoriesSuccessController {
     @GetMapping("/detail/{id}")
     public BaseResponse<JSONObject> detail(@PathVariable("id") int id) {
         return service.detail(id);
+    }
+
+    @PostMapping("/updateStatus")
+    public BaseResponse<JSONObject> updateStatus(@RequestBody ArticleUpdate articleUpdate) {
+        return service.updateStatus(articleUpdate);
     }
 }

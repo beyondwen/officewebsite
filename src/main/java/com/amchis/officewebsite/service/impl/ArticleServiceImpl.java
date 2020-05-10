@@ -128,6 +128,7 @@ public class ArticleServiceImpl extends BaseApiService implements ArticleService
         if (optional.isPresent()) {
             Article article = optional.get();
             article.setBodyStatus(bodyStatus);
+            articleRepository.save(article);
             return setResultSuccess("更新成功");
         }
         return setResultSuccess("更新失败");

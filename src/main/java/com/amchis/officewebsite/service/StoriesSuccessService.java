@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.amchis.officewebsite.base.BaseResponse;
 import com.amchis.officewebsite.base.request.PageQuery;
 import com.amchis.officewebsite.base.response.QueryResponseResult;
+import com.amchis.officewebsite.domain.ArticleUpdate;
 import com.amchis.officewebsite.domain.StoriesSuccess;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -29,4 +30,8 @@ public interface StoriesSuccessService {
     @GetMapping("/detail/{id}")
     @ApiOperation("详情")
     BaseResponse<JSONObject> detail(int id);
+
+    @PostMapping("/updateStatus")
+    @ApiOperation("更新文章状态")
+    BaseResponse<JSONObject> updateStatus(@RequestBody ArticleUpdate articleUpdate);
 }
