@@ -2,6 +2,7 @@ package com.amchis.officewebsite.service;
 
 import com.alibaba.fastjson.JSONObject;
 import com.amchis.officewebsite.base.BaseResponse;
+import com.amchis.officewebsite.domain.Location;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.http.ResponseEntity;
@@ -13,6 +14,10 @@ public interface FileService {
 
     @ApiOperation("图片上传")
     BaseResponse<JSONObject> upload(@RequestParam("file") MultipartFile file);
+
+
+    @ApiOperation("文件上传 location")
+    Location upload4Location(@RequestParam("file") MultipartFile file);
 
     @ApiOperation("上传视频 cover")
     BaseResponse<JSONObject> uploadCover(@RequestParam("file") MultipartFile file,Integer videoFileId);

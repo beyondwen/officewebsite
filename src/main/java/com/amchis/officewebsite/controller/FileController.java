@@ -2,6 +2,7 @@ package com.amchis.officewebsite.controller;
 
 import com.alibaba.fastjson.JSONObject;
 import com.amchis.officewebsite.base.BaseResponse;
+import com.amchis.officewebsite.domain.Location;
 import com.amchis.officewebsite.service.FileService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -18,6 +19,11 @@ public class FileController {
     @PostMapping("/upload")
     public BaseResponse<JSONObject> upload(MultipartFile file) {
         return fileService.upload(file);
+    }
+
+    @PostMapping("/upload4Location")
+    public Location upload4Location(MultipartFile file) {
+        return fileService.upload4Location(file);
     }
 
     @PostMapping("/uploadCover")
@@ -43,7 +49,7 @@ public class FileController {
 
 
     @GetMapping("/viderCover/{bannerId}/{orderNum}")
-    public BaseResponse<JSONObject> findVideoCover(@PathVariable("bannerId") Integer bannerId,@PathVariable("orderNum") Integer orderNum) {
+    public BaseResponse<JSONObject> findVideoCover(@PathVariable("bannerId") Integer bannerId, @PathVariable("orderNum") Integer orderNum) {
         return fileService.viderCover(bannerId, orderNum);
     }
 }
