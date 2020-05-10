@@ -31,7 +31,7 @@ public class FileController {
         return fileService.view(url);
     }
 
-    @GetMapping("/view")
+    @GetMapping("/articlView")
     public ResponseEntity<byte[]> articlView(@RequestParam("imageId") Integer imageId) {
         return fileService.articlView(imageId);
     }
