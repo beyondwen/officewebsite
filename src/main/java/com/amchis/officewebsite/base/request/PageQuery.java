@@ -14,4 +14,6 @@ public class PageQuery extends QueryPageRequest {
     private String source;
 
     private Integer articleCategory;
+
+    private String username;
 }

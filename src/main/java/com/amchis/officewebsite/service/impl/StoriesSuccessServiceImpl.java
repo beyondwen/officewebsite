@@ -62,6 +62,7 @@ public class StoriesSuccessServiceImpl extends BaseApiService implements Stories
             String endTime = pageQuery.getEndTime();
             String startTime = pageQuery.getStartTime();
             String source = pageQuery.getSource();
+            String username = pageQuery.getUsername();
             //起始日期
             if (StringUtils.isNotEmpty(startTime)) {
                 predicate.getExpressions().add(cb.greaterThanOrEqualTo(root.get("createTime").as(String.class), startTime));
@@ -71,7 +72,7 @@ public class StoriesSuccessServiceImpl extends BaseApiService implements Stories
                 predicate.getExpressions().add(cb.lessThanOrEqualTo(root.get("createTime").as(String.class), endTime));
             }
             if (StringUtils.isNotEmpty(title)) {
-                predicate = cb.and(predicate, cb.like(root.get("articleTitle"), "%" + title + "%"));
+                predicate = cb.and(predicate, cb.like(root.get("username"), "%" + username + "%"));
             }
             if (StringUtils.isNotEmpty(source)) {
                 predicate = cb.and(predicate, cb.like(root.get("source"), "%" + source + "%"));
