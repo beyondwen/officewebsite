@@ -9,6 +9,7 @@ import com.amchis.officewebsite.base.response.QueryResponseResult;
 import com.amchis.officewebsite.base.response.QueryResult;
 import com.amchis.officewebsite.domain.ACDo;
 import com.amchis.officewebsite.domain.Article;
+import com.amchis.officewebsite.domain.ArticleUpdate;
 import com.amchis.officewebsite.domain.Articlecontent;
 import com.amchis.officewebsite.jpa.ArticleRepository;
 import com.amchis.officewebsite.jpa.ArticlecontentRepository;
@@ -22,6 +23,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import javax.persistence.criteria.Predicate;
 import java.util.Optional;
@@ -106,7 +108,7 @@ public class ArticleServiceImpl extends BaseApiService implements ArticleService
             Article article = optional.get();
             Integer id1 = article.getArticleId();
             Optional<Articlecontent> optional1 = articlecontentRepository.findById(id1);
-            if (optional1.isPresent()){
+            if (optional1.isPresent()) {
                 ACDo acDo = new ACDo();
                 Articlecontent articlecontent = optional1.get();
                 acDo.setArticle(article);
@@ -116,5 +118,18 @@ public class ArticleServiceImpl extends BaseApiService implements ArticleService
             return setResultError("未查询到数据");
         }
         return setResultError("未查询到数据");
+    }
+
+    @Override
+    public BaseResponse<JSONObject> updateStatus(@RequestBody ArticleUpdate articleUpdate) {
+        Integer id = articleUpdate.getId();
+        Integer bodyStatus = articleUpdate.getBodyStatus();
+        Optional<Article> optional = articleRepository.findById(id);
+        if (optional.isPresent()) {
+            Article article = optional.get();
+            article.setBodyStatus(bodyStatus);
+            return setResultSuccess("更新成功");
+        }
+        return setResultSuccess("更新失败");
     }
 }
